@@ -1,7 +1,9 @@
+// this file is the entry point for our application
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -10,6 +12,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+//this rendor method is responsible for rendering React elements to the DOM. it takes two arguments- 1) the element that will be rendered in the DOM and 2) is where the elements should be rendered
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
