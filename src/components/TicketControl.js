@@ -14,6 +14,14 @@ class TicketControl extends React.Component {
     };
   }
 
+handleDeletingTicket = (id) => {
+  const newMasterTicketList = this.state.masterTicketList.filter(ticket => ticket.id !== id); //we want to filter everything that doesn't have the ticket ID that will be passed into the method
+  this.setState({
+    masterTicketList: newMasterTicketList,
+    selectedTicket: null
+  })
+}
+
 handleChangingSelectedTicket = (id) => {
   const selectedTicket = this.state.masterTicketList.filter(ticket => ticket.id === id)[0]; // filter returns an array so we need to specify that we want the first element in that array
   this.setState({selectedTicket: selectedTicket}); //we use setState method to mutate the state of the selectedTicket state slice
@@ -45,7 +53,7 @@ handleChangingSelectedTicket = (id) => {
     let buttonText = null;
 
     if (this.state.selectedTicket != null) {
-      currentlyVisibleState = <TicketDetail ticket = {this.state.selectedTicket} />
+      currentlyVisibleState = <TicketDetail ticket = {this.state.selectedTicket} onClickingDelete = {this.handleDeletingTicket} />
       buttonText = "Return to Ticket List";
     }
 
