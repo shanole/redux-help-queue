@@ -49,7 +49,6 @@ handleChangingSelectedTicket = (id) => {
     const newMasterTicketList = this.state.masterTicketList.concat(newTicket);
     this.setState({masterTicketList: newMasterTicketList,
                   formVisibleOnPage: false });
-
   }
 
 
@@ -83,7 +82,7 @@ handleChangingSelectedTicket = (id) => {
       currentlyVisibleState = <NewTicketForm onNewTicketCreation = {this.handleAddingNewTicketToList} />;
       buttonText = "Return to Ticket List";
     } else {
-      currentlyVisibleState = <TicketList ticketList={this.state.masterTicketList} onTicketSelection={this.handleChangingSelectedTicket} />; //because a uswer will actually be clicking on the ticket in the Ticket component, we will pass the handleChangingSelectedTicket method as a prop 
+      currentlyVisibleState = <TicketList ticketList={this.state.masterTicketList} onTicketSelection={this.handleChangingSelectedTicket} />; //because a user will actually be clicking on the ticket in the Ticket component, we will pass the handleChangingSelectedTicket method as a prop 
       buttonText = "Add Ticket";
     }
     return (
