@@ -7,9 +7,10 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducers/ticket-list-reducer';
+// import reducer from './reducers/ticket-list-reducer';
+import rootReducer from './reducers/index';
 
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 store.subscribe(() =>
   console.log(store.getState())
