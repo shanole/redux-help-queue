@@ -140,6 +140,6 @@ const mapStateToProps = state => {
   }
 }
 
-TicketControl = connect(mapStateToProps)(TicketControl);
+TicketControl = connect(mapStateToProps)(TicketControl); //now our new TicketControl has state props and access to dispatch by way of connect()
 
 export default TicketControl;
