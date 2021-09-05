@@ -12,8 +12,6 @@ class TicketControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // formVisibleOnPage: false,
-      // masterTicketList: [],
       selectedTicket: null,
       editing: false
     };
@@ -46,23 +44,15 @@ class TicketControl extends React.Component {
 
 
 
-handleEditingTicketInList = (ticketToEdit) => {
-  const { dispatch } = this.props;
-  const action = a.addTicket(ticketToEdit)
-  dispatch(action);
-  this.setState({
-    editing: false,
-    selectedTicket: null
-  });
-  // const editedMasterTicketList = this.state.masterTicketList
-  //       .filter(ticket => ticket.id !== this.state.selectedTicket.id)
-  //       .concat(ticketToEdit);
-  // this.setState({
-  //   masterTicketList: editedMasterTicketList,
-  //   editing: false,
-  //   selectedTicket: null
-  // });
-}
+// handleEditingTicketInList = (ticketToEdit) => {
+//   const { dispatch } = this.props;
+//   const action = a.addTicket(ticketToEdit)
+//   dispatch(action);
+//   this.setState({
+//     editing: false,
+//     selectedTicket: null
+//   });
+// }
 
 handleEditClick = () => {
   console.log("handleEditClick reached");
@@ -74,11 +64,6 @@ handleDeletingTicket = (id) => {
   const action = a.deleteTicket(id);
   dispatch(action);
   this.setState({selectedTicket: null});
-  // const newMasterTicketList = this.state.masterTicketList.filter(ticket => ticket.id !== id); //we want to filter everything that doesn't have the ticket ID that will be passed into the method
-  // this.setState({
-  //   masterTicketList: newMasterTicketList,
-  //   selectedTicket: null
-  // })
 }
 
 handleChangingSelectedTicket = (id) => {
@@ -88,22 +73,14 @@ handleChangingSelectedTicket = (id) => {
 
 handleAddingNewTicketToList = (newTicket) => {
     const { dispatch } = this.props;
-    const action = a.addTicket(newTicket);
+    const action = a.toggleForm();
     dispatch(action);
-    const action2 = a.toggleForm();
-    dispatch(action2)
-    // this.setState({formVisibleOnPage: false})
-
-    // const newMasterTicketList = this.state.masterTicketList.concat(newTicket);
-    // this.setState({masterTicketList: newMasterTicketList,
-    //               formVisibleOnPage: false });
   }
 
 
   handleClick = () => {
     if (this.state.selectedTicket != null) {
       this.setState({
-        // formVisibleOnPage: false,
         selectedTicket: null,
         editing: false
       });
@@ -111,9 +88,6 @@ handleAddingNewTicketToList = (newTicket) => {
       const { dispatch } = this.props;
       const action = a.toggleForm();
       dispatch(action);
-      //   this.setState(prevState => ({
-      //     formVisibleOnPage: !prevState.formVisibleOnPage // we pass in the current state of the formVisibleOnPage boolean to prevState. now that we know this value, we can say the new state should be the opposite of the old state
-      // }));
     }
   }
 
