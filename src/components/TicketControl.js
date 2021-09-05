@@ -18,27 +18,27 @@ class TicketControl extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.waitTimeUpdateTimer = setInterval(() =>
-      this.updateTicketElapsedWaitTime(), 60000
-    );
-  }
+  // componentDidMount() {
+  //   this.waitTimeUpdateTimer = setInterval(() =>
+  //     this.updateTicketElapsedWaitTime(), 60000
+  //   );
+  // }
 
-  componentWillUnmount() {
-    console.log("Component unmounted!");
-    clearInterval(this.waitTimeUpdateTimer);
-  }
+  // componentWillUnmount() {
+  //   console.log("Component unmounted!");
+  //   clearInterval(this.waitTimeUpdateTimer);
+  // }
 
-  updateTicketElapsedWaitTime = () => {
-    const { dispatch } = this.props;
-    Object.values(this.props.masterTicketList).forEach(ticket => {
-      const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
-      const action = a.updateTime(ticket.id, newFormattedWaitTime);
-      dispatch(action);
-    })
-  }
+  // updateTicketElapsedWaitTime = () => {
+  //   this.props.firestore.map(ticket => this.props.firestore.update)
 
-
+    // const { dispatch } = this.props;
+    // Object.values(this.props.masterTicketList).forEach(ticket => {
+    //   const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
+    //   const action = a.updateTime(ticket.id, newFormattedWaitTime);
+    //   dispatch(action);
+    // })
+  // }
 
 handleEditingTicketInList = (ticketToEdit) => {
   this.setState({
@@ -75,7 +75,6 @@ handleAddingNewTicketToList = (newTicket) => {
     dispatch(action);
   }
 
-
   handleClick = () => {
     if (this.state.selectedTicket != null) {
       this.setState({
@@ -105,7 +104,7 @@ handleAddingNewTicketToList = (newTicket) => {
       currentlyVisibleState = <NewTicketForm onNewTicketCreation = {this.handleAddingNewTicketToList} />;
       buttonText = "Return to Ticket List";
     } else {
-      currentlyVisibleState = <TicketList ticketList={this.props.masterTicketList} onTicketSelection={this.handleChangingSelectedTicket} />; //because a user will actually be clicking on the ticket in the Ticket component, we will pass the handleChangingSelectedTicket method as a prop 
+      currentlyVisibleState = <TicketList onTicketSelection={this.handleChangingSelectedTicket} />; //because a user will actually be clicking on the ticket in the Ticket component, we will pass the handleChangingSelectedTicket method as a prop 
       buttonText = "Add Ticket";
     }
     return (
