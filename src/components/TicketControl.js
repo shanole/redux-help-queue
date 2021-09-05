@@ -6,6 +6,7 @@ import EditTicketForm from './EditTicketForm';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as a from './../actions';
+import { withFirestore } from 'react-redux-firebase';
 
 class TicketControl extends React.Component {
 
@@ -23,17 +24,12 @@ class TicketControl extends React.Component {
     );
   }
 
-  componentDidUpdate() {
-    console.log("Component updated!");
-  }
-
   componentWillUnmount() {
     console.log("Component unmounted!");
     clearInterval(this.waitTimeUpdateTimer);
   }
 
   updateTicketElapsedWaitTime = () => {
-    console.log("tick");
     const { dispatch } = this.props;
     Object.values(this.props.masterTicketList).forEach(ticket => {
       const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
@@ -44,15 +40,12 @@ class TicketControl extends React.Component {
 
 
 
-// handleEditingTicketInList = (ticketToEdit) => {
-//   const { dispatch } = this.props;
-//   const action = a.addTicket(ticketToEdit)
-//   dispatch(action);
-//   this.setState({
-//     editing: false,
-//     selectedTicket: null
-//   });
-// }
+handleEditingTicketInList = (ticketToEdit) => {
+  this.setState({
+    editing: false,
+    selectedTicket: null
+  });
+}
 
 handleEditClick = () => {
   console.log("handleEditClick reached");
@@ -67,8 +60,15 @@ handleDeletingTicket = (id) => {
 }
 
 handleChangingSelectedTicket = (id) => {
-  const selectedTicket = this.props.masterTicketList[id];
-  this.setState({selectedTicket: selectedTicket}); 
+  this.props.firestore.get({collection: 'tickets', doc: id}).then((ticket) => {
+    const firestoreTicket = {
+      names: ticket.get("names"),
+      location: ticket.get("location"),
+      issue: ticket.get("issue"),
+      id: ticket.id
+      }
+      this.setState({selectedTicket: firestoreTicket})
+  });
 }
 
 handleAddingNewTicketToList = (newTicket) => {
@@ -134,4 +134,5 @@ const mapStateToProps = state => {
 
 TicketControl = connect(mapStateToProps)(TicketControl); //now our new TicketControl has state props and access to dispatch by way of connect()
 
-export default TicketControl;
+// HOC that makes firestore available to our app with this.props.firestore
+export default withFirestore(TicketControl);
